@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="adapterImagePreview"
+            type="com.example.unsplashclient.ui.main_fragment.image_preview_adapter.ImagePreviewAdapter" />
+
+        <variable
+            name="adapterQuickSearch"
+            type="com.example.unsplashclient.ui.main_fragment.quick_search_adapter.QuickSearchAdapter" />
+
+        <variable
+            name="view"
+            type="com.example.unsplashclient.ui.main_fragment.MainFragment" />
+
+        <variable
+            name="viewModel"
+            type="com.example.unsplashclient.ui.main_fragment.MainViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/design_default_color_on_primary"
+        tools:context=".ui.main_fragment.MainFragment">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/quickSearchRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adapter="@{adapterQuickSearch}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/image_preview_card_view">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/imagePreviewRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:adapter="@{adapterImagePreview}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/quickSearchRecycler">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
