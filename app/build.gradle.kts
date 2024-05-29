@@ -4,6 +4,8 @@ plugins {
     id("com.google.devtools.ksp")
     id("com.google.dagger.hilt.android")
     id("kotlin-kapt")
+
+
 }
 
 android {
@@ -61,9 +63,16 @@ dependencies {
 
 
     // Hilt
-    ksp(libs.hilt.compiler)
     implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
 
     implementation(libs.shimmer)
     implementation(libs.viewbindingpropertydelegate)
+
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.logging.interceptor)
+    implementation(libs.converter.scalars)
+
+    implementation(libs.kotlinx.serialization.json)
 }

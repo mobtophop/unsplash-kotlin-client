@@ -10,8 +10,10 @@ import com.example.unsplashclient.base.BaseFragment
 import com.example.unsplashclient.R
 import com.example.unsplashclient.databinding.FragmentMainBinding
 import com.example.unsplashclient.ui.main_fragment.main_list_adapter.MainListAdapter
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class MainFragment : BaseFragment<FragmentMainBinding>() {
     private val viewModel: MainViewModel by viewModels()
     private val mainListAdapter by lazy { MainListAdapter() }
