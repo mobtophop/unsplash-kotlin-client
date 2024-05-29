@@ -16,7 +16,6 @@ class ImagePreviewCardView @JvmOverloads constructor(
 ) {
 
 
-
     private val binding =
         ImagePreviewCardViewBinding.inflate(
             LayoutInflater.from(context), this, true,

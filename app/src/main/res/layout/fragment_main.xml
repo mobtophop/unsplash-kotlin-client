@@ -8,12 +8,8 @@
         <import type="android.view.View" />
 
         <variable
-            name="adapterImagePreview"
-            type="com.example.unsplashclient.ui.main_fragment.image_preview_adapter.ImagePreviewAdapter" />
-
-        <variable
-            name="adapterQuickSearch"
-            type="com.example.unsplashclient.ui.main_fragment.quick_search_adapter.QuickSearchAdapter" />
+            name="mainListAdapter"
+            type="com.example.unsplashclient.ui.main_fragment.main_list_adapter.MainListAdapter" />
 
         <variable
             name="view"
@@ -31,26 +27,14 @@
         tools:context=".ui.main_fragment.MainFragment">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/quickSearchRecycler"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:adapter="@{adapterQuickSearch}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:listitem="@layout/image_preview_card_view">
-
-        </androidx.recyclerview.widget.RecyclerView>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/imagePreviewRecycler"
+            android:id="@+id/mainRecyclerList"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:adapter="@{adapterImagePreview}"
+            android:adapter="@{mainListAdapter}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/quickSearchRecycler">
+            app:layout_constraintTop_toTopOf="parent">
 
         </androidx.recyclerview.widget.RecyclerView>
 
