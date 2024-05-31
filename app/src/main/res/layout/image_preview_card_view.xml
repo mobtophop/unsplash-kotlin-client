@@ -5,13 +5,14 @@
     <data>
 
         <variable
-            name="view"
-            type="com.example.unsplashclient.ui.widgets.ImagePreviewCardView" />
+            name="dataModel"
+            type="com.example.unsplashclient.ui.main_fragment.main_list_adapter.ImagePreviewData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp">
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="0dp"
@@ -28,27 +29,76 @@
                 android:layout_height="match_parent">
 
                 <ImageView
+                    android:id="@+id/imagePreview"
+                    color="@{dataModel.color}"
+                    image="@{dataModel.imageUrl}"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/black"
+                    android:scaleType="centerCrop"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                </ImageView>
-
-                <TextView
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    android:text="☺ Author Name"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
+                    android:background="@drawable/black_background_tinted"
+                    android:shadowColor="@color/transparent"
+                    app:cardBackgroundColor="@color/black_30_percent"
+                    app:cardCornerRadius="0dp"
+                    app:cardElevation="0dp"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:strokeColor="@color/transparent"
+                    app:strokeWidth="0dp">
 
-                </TextView>
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/userPfp"
+                            color="@{null}"
+                            image="@{dataModel.authorPfp}"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:layout_margin="12dp"
+                            android:background="@drawable/gray_400_background_round"
+                            android:clipToOutline="true"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/authorName"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                        </ImageView>
+
+                        <TextView
+                            android:id="@+id/authorName"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="12dp"
+                            android:layout_marginEnd="12dp"
+                            android:autoSizeMaxTextSize="20dp"
+                            android:autoSizeMinTextSize="12dp"
+                            android:autoSizeStepGranularity="2dp"
+                            android:maxLines="2"
+                            android:text="@{dataModel.authorName}"
+                            android:textColor="@color/white"
+                            app:flow_wrapMode="chain"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/userPfp"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                        </TextView>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

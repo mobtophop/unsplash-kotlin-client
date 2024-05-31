@@ -83,7 +83,7 @@ class MainListAdapter() :
         var binding: ImagePreviewCardViewBinding
     ) : MainListItemViewHolder<ImagePreviewData>(binding.root) {
         override fun bind(data: ImagePreviewData) {
-            binding.setVariable(BR.view, binding.view)
+            binding.setVariable(BR.dataModel, data)
             binding.executePendingBindings()
         }
     }
@@ -92,7 +92,6 @@ class MainListAdapter() :
         var binding: ViewDataBinding
     ) : MainListItemViewHolder<EmptyImagePreviewData>(binding.root) {
         override fun bind(data: EmptyImagePreviewData) {
-            binding.setVariable(BR.view, binding.root)
             binding.executePendingBindings()
         }
     }
@@ -101,7 +100,6 @@ class MainListAdapter() :
         var binding: QuickSearchButtonBinding
     ) : MainListItemViewHolder<QuickSearchData>(binding.root) {
         override fun bind(data: QuickSearchData) {
-            binding.setVariable(BR.view, binding.view)
             binding.executePendingBindings()
         }
     }

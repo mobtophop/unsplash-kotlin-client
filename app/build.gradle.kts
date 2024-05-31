@@ -1,11 +1,10 @@
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.jetbrains.kotlin.android)
-    id("com.google.devtools.ksp")
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
     id("com.google.dagger.hilt.android")
+    id("com.google.devtools.ksp")
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.9.23"
     id("kotlin-kapt")
-
-
 }
 
 android {
@@ -75,4 +74,10 @@ dependencies {
     implementation(libs.converter.scalars)
 
     implementation(libs.kotlinx.serialization.json)
+
+    implementation("androidx.paging:paging-runtime:3.3.0")
+    testImplementation("androidx.paging:paging-common:3.3.0")
+
+
+    implementation(libs.glide)
 }

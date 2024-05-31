@@ -5,14 +5,15 @@ sealed class MainListItemData
 data class EmptyImagePreviewData(val id: Int) : MainListItemData()
 
 data class ImagePreviewData(
-    val id: Int,
+    val id: String,
     val imageUrl: String,
+    val color: String,
     val authorName: String,
     val authorPfp: String,
 ) : MainListItemData()
 
 data class QuickSearchData(
-    val id: Int,
+    val id: String,
     val imageUrl: String,
     val label: String,
 ) : MainListItemData()
