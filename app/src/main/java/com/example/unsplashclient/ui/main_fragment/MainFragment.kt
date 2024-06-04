@@ -2,7 +2,7 @@ package com.example.unsplashclient.ui.main_fragment
 
 import android.os.Bundle
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
+import androidx.paging.map
 import androidx.recyclerview.widget.GridLayoutManager
 import by.kirich1409.viewbindingdelegate.CreateMethod
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -11,7 +11,6 @@ import com.example.unsplashclient.R
 import com.example.unsplashclient.databinding.FragmentMainBinding
 import com.example.unsplashclient.ui.main_fragment.main_list_adapter.MainListAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainFragment : BaseFragment<FragmentMainBinding>() {
@@ -30,12 +29,17 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
     }
 
     private fun initViewModel() = with(viewModel) {
-        viewLifecycleOwner.lifecycleScope.launch {
-            mainListBaseSource.collect { dataSource ->
 
-                mainListAdapter.submitList(dataSource.toMutableList())
-                mainListAdapter.notifyDataSetChanged()
-            }
+//        viewLifecycleOwner.lifecycleScope.launch {
+//            mainListAdapter.submitData(
+//                PagingData.from(
+//                    viewModel.mainListBaseSource.value
+//                )
+//            )
+//        }
+
+        viewModel.photos.observe(viewLifecycleOwner) {
+            mainListAdapter.submitData(viewLifecycleOwner.lifecycle, it.map { data -> data })
         }
     }
 

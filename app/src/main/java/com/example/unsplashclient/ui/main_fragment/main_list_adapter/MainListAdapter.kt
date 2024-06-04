@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.ListAdapter
 import com.example.unsplashclient.BR
 import com.example.unsplashclient.R
@@ -12,7 +13,7 @@ import com.example.unsplashclient.databinding.QuickSearchButtonBinding
 import com.example.unsplashclient.databinding.QuickSearchButtonShimmerBinding
 
 class MainListAdapter() :
-    ListAdapter<MainListItemData, MainListItemViewHolder<*>>(MainListItemComparator()) {
+    PagingDataAdapter<MainListItemData, MainListItemViewHolder<*>>(MainListItemComparator()) {
 
     companion object {
         private const val EMPTY_ITEM = 0
@@ -76,6 +77,7 @@ class MainListAdapter() :
             is EmptyImagePreviewData -> (holder as? EmptyHolder)?.bind(item)
             is ImagePreviewData -> (holder as? ImagePreviewHolder)?.bind(item)
             is QuickSearchData -> (holder as? QuickSearchHolder)?.bind(item)
+            else -> return
         }
     }
 
