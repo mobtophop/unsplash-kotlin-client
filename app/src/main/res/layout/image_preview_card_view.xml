@@ -6,7 +6,7 @@
 
         <variable
             name="dataModel"
-            type="com.example.unsplashclient.ui.main_fragment.main_list_adapter.ImagePreviewData" />
+            type="com.example.unsplashclient.ui.main_fragment.image_preview_adapter.ImagePreviewData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

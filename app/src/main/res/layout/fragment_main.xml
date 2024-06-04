@@ -9,7 +9,7 @@
 
         <variable
             name="mainListAdapter"
-            type="com.example.unsplashclient.ui.main_fragment.main_list_adapter.MainListAdapter" />
+            type="androidx.recyclerview.widget.ConcatAdapter" />
 
         <variable
             name="view"

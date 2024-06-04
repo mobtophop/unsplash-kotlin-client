@@ -5,7 +5,7 @@ import androidx.lifecycle.map
 import androidx.paging.PagingData
 import androidx.paging.map
 import com.example.unsplashclient.data.UnsplashRepository
-import com.example.unsplashclient.ui.main_fragment.main_list_adapter.ImagePreviewData
+import com.example.unsplashclient.ui.main_fragment.image_preview_adapter.ImagePreviewData
 import javax.inject.Inject
 
 class UnsplashUseCase @Inject constructor(
