@@ -2,6 +2,7 @@ package com.example.unsplashclient.ui.main_fragment.quick_search_adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.example.unsplashclient.R
@@ -54,6 +55,13 @@ class QuickSearchAdapter() :
         var binding: QuickSearchButtonBinding
     ) : QuickSearchViewHolder<QuickSearchData>(binding.root) {
         override fun bind(data: QuickSearchData) {
+            binding.label = data.label
+            binding.icon.setImageDrawable(
+                AppCompatResources.getDrawable(
+                    binding.root.context,
+                    data.recourse
+                )
+            )
             binding.executePendingBindings()
         }
     }

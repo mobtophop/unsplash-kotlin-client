@@ -9,6 +9,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import com.example.unsplashclient.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,16 +26,30 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
 
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
+
+        binding.toolbarSearchButton.setOnClickListener {
+            binding.toolbarSearchButton.visibility = View.GONE
+            binding.toolbarTitle.visibility = View.GONE
+            binding.toolbarBackButton.visibility = View.VISIBLE
+            binding.toolbarSearchView.visibility = View.VISIBLE
+        }
+        binding.toolbarBackButton.setOnClickListener {
+            binding.toolbarBackButton.visibility = View.GONE
+            binding.toolbarSearchView.visibility = View.GONE
+            binding.toolbarTitle.visibility = View.VISIBLE
+            binding.toolbarSearchButton.visibility = View.VISIBLE
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
+        //menuInflater.inflate(R.menu.menu_main, menu)
+        return false
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
