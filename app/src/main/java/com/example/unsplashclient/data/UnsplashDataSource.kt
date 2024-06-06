@@ -8,11 +8,11 @@ import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
-class UnsplashDataSource @Inject constructor(private val unsplashApiService: UnsplashApiService) :
+class UnsplashDataSource @Inject constructor(
+    private val unsplashApiService: UnsplashApiService,
+    private val query: String?
+) :
     PagingSource<Int, UnsplashPhotoData>() {
-//    suspend fun getLatestImages() =
-//        unsplashApiService.getLatestImages(page = "1", per_page = "10")
-
     override fun getRefreshKey(state: PagingState<Int, UnsplashPhotoData>): Int? {
         return state.anchorPosition?.let {
             state.closestPageToPosition(it)?.prevKey?.plus(1)
@@ -24,15 +24,21 @@ class UnsplashDataSource @Inject constructor(private val unsplashApiService: Uns
 
         return try {
             val pageNumber = params.key ?: 0
-
-
-            val response = unsplashApiService.getLatestImages(page = "$pageNumber", per_page = "10")
-
             val prevKey = if (pageNumber > 0) pageNumber - 1 else null
 
-            val nextKey = if ((response.body() ?: listOf()).isNotEmpty()) pageNumber + 1 else null
+            val result: List<UnsplashPhotoData>? =
+                if (query?.isEmpty() != false) unsplashApiService.getLatestImages(
+                    page = "$pageNumber",
+                    per_page = "10"
+                ).body() else unsplashApiService.getSearchImages(
+                    page = "$pageNumber",
+                    per_page = "10",
+                    query = query
+                ).body()?.results
+
+            val nextKey = if ((result ?: listOf()).isNotEmpty()) pageNumber + 1 else null
             LoadResult.Page(
-                data = response.body() ?: listOf(),
+                data = result ?: listOf(),
                 prevKey = prevKey,
                 nextKey = nextKey
             )

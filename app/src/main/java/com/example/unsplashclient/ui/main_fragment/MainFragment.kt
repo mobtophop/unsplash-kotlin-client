@@ -2,6 +2,7 @@ package com.example.unsplashclient.ui.main_fragment
 
 import android.os.Bundle
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.map
 import androidx.recyclerview.widget.ConcatAdapter
@@ -14,11 +15,18 @@ import com.example.unsplashclient.databinding.FragmentMainBinding
 import com.example.unsplashclient.ui.main_fragment.image_preview_adapter.ImagePreviewAdapter
 import com.example.unsplashclient.ui.main_fragment.quick_search_adapter.QuickSearchAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.lifecycle.withCreationCallback
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainFragment : BaseFragment<FragmentMainBinding>() {
-    private val viewModel: MainViewModel by viewModels()
+    private val viewModel: MainViewModel by viewModels<MainViewModel>(
+        extrasProducer = {
+            defaultViewModelCreationExtras.withCreationCallback<MainViewModel.MainViewModelFactory> { factory ->
+                factory.create(state = SavedStateHandle())
+            }
+        },
+    )
     private val imagePreviewAdapter by lazy { ImagePreviewAdapter() }
     private val quickSearchAdapter by lazy { QuickSearchAdapter() }
     override val layoutRes = R.layout.fragment_main

@@ -7,6 +7,10 @@
         <variable
             name="label"
             type="String" />
+
+        <variable
+            name="search"
+            type="kotlin.Function" />
     </data>
 
 

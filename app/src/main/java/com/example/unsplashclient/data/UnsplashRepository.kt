@@ -3,22 +3,19 @@ package com.example.unsplashclient.data
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.liveData
+import com.example.unsplashclient.api.UnsplashApiService
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import javax.inject.Inject
 
 @ActivityRetainedScoped
 class UnsplashRepository @Inject
-constructor(private val remoteDataSource: UnsplashDataSource) {
-    fun getLatestImages() =
+constructor(private val unsplashApiService: UnsplashApiService) {
+    fun getImages(query: String?) =
         Pager(
             config = PagingConfig(
                 10,
                 enablePlaceholders = false
-
             ),
-            pagingSourceFactory = { remoteDataSource }
+            pagingSourceFactory = { UnsplashDataSource(unsplashApiService, query) }
         ).liveData
-
-//    suspend fun getLatestImages() =
-//        remoteDataSource.getLatestImages()
 }

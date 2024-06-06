@@ -11,9 +11,9 @@ import javax.inject.Inject
 class UnsplashUseCase @Inject constructor(
     private val unsplashRepository: UnsplashRepository
 ) {
-    fun getLatestImages():
+    fun getImages(query: String?):
             LiveData<PagingData<ImagePreviewData>> {
-        return unsplashRepository.getLatestImages().map {
+        return unsplashRepository.getImages(query).map {
             it.map { data ->
                 ImagePreviewData(
                     id = data.id ?: "",

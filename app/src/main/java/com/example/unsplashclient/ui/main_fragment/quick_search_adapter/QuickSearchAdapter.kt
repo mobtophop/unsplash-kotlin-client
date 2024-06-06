@@ -63,6 +63,8 @@ class QuickSearchAdapter() :
                 )
             )
             binding.executePendingBindings()
+
+            binding.root.setOnClickListener { data.searchCallback.invoke() }
         }
     }
 }

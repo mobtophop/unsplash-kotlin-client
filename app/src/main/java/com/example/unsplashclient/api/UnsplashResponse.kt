@@ -1,7 +1,11 @@
 package com.example.unsplashclient.api
 
-import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
+
+@Serializable
+data class UnsplashSearchResult(
+    var results: List<UnsplashPhotoData>,
+)
 
 @Serializable
 data class UnsplashPhotoData(

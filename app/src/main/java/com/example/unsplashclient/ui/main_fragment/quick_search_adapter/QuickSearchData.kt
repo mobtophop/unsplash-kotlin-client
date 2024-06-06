@@ -4,4 +4,5 @@ data class QuickSearchData(
     val id: String,
     val recourse: Int,
     val label: String,
+    val searchCallback: () -> Unit,
 )

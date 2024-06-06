@@ -14,4 +14,12 @@ interface UnsplashApiService {
         @Query("page") page: String?, // Paging 3
         @Query("per_page") per_page: String?,
     ): Response<List<UnsplashPhotoData>>
+
+    @GET("search/photos")
+    @Headers("Authorization: Client-ID $UNSPLASH_ACCESS_KEY")
+    suspend fun getSearchImages(
+        @Query("query") query: String?,
+        @Query("page") page: String?, // Paging 3
+        @Query("per_page") per_page: String?,
+    ): Response<UnsplashSearchResult>
 }
