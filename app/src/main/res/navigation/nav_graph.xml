@@ -10,5 +10,14 @@
         android:name="com.example.unsplashclient.ui.main_fragment.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" >
+        <action
+
+            android:id="@+id/action_mainFragment_to_imageViewFragment"
+            app:destination="@id/imageViewFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/imageViewFragment"
+        android:name="com.example.unsplashclient.ui.image_view_fragment.ImageViewFragment"
+        android:label="fragment_image_view"
+        tools:layout="@layout/fragment_image_view" />
 </navigation>

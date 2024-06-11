@@ -1,14 +1,19 @@
 package com.example.unsplashclient.ui.main_fragment
 
 import android.os.Bundle
+import android.util.Log
+import android.view.WindowManager
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.paging.map
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.GridLayoutManager
 import by.kirich1409.viewbindingdelegate.CreateMethod
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.example.unsplashclient.MainActivity
 import com.example.unsplashclient.base.BaseFragment
 import com.example.unsplashclient.R
 import com.example.unsplashclient.databinding.FragmentMainBinding
@@ -17,6 +22,7 @@ import com.example.unsplashclient.ui.main_fragment.quick_search_adapter.QuickSea
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.withCreationCallback
 import kotlinx.coroutines.launch
+import kotlin.reflect.typeOf
 
 @AndroidEntryPoint
 class MainFragment : BaseFragment<FragmentMainBinding>() {
@@ -27,10 +33,36 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
             }
         },
     )
-    private val imagePreviewAdapter by lazy { ImagePreviewAdapter() }
+    private val imagePreviewAdapter by lazy {
+        ImagePreviewAdapter(
+            callback = { imageUrl, color, authorName ->
+//
+//                Log.d("PRINT ACTIVITY", "${activity?.javaClass?.name}")
+//
+//                (activity as MainActivity?)?.loadFragment("unsplash link to image from $author")
+//
+//
+//                (requireActivity() as? MainActivity)?.supportActionBar?.hide()
+
+                findNavController().navigate(
+                    R.id.action_mainFragment_to_imageViewFragment,
+                    bundleOf(
+                        "IMAGE_URL" to imageUrl,
+                        "COLOR" to color,
+                        "AUTHOR_NAME" to authorName,
+                    )
+                )
+
+            }
+        )
+    }
     private val quickSearchAdapter by lazy { QuickSearchAdapter() }
     override val layoutRes = R.layout.fragment_main
     override val binding: FragmentMainBinding by viewBinding(createMethod = CreateMethod.BIND)
+
+    fun passNewSearchQueryToViewModel(str: String?) {
+        viewModel.setNewSearchQuery(str)
+    }
 
     override fun initUI(savedInstanceState: Bundle?) {
         initViewModel()

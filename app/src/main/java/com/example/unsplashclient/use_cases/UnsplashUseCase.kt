@@ -18,6 +18,7 @@ class UnsplashUseCase @Inject constructor(
                 ImagePreviewData(
                     id = data.id ?: "",
                     imageUrl = data.urls.regular ?: "",
+                    fullImageUrl = data.urls.full ?: "",
                     color = data.color ?: "#000000",
                     authorName = data.user.name ?: "",
                     authorPfp = data.user.profile_image.medium ?: "",

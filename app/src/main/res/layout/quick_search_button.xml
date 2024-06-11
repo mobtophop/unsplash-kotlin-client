@@ -3,14 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
             name="label"
             type="String" />
-
-        <variable
-            name="search"
-            type="kotlin.Function" />
     </data>
 
 

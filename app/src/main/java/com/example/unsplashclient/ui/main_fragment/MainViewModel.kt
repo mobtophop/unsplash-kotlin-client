@@ -67,7 +67,7 @@ class MainViewModel @AssistedInject constructor(
         )
     )
 
-    private fun setNewSearchQuery(query: String) {
+    fun setNewSearchQuery(query: String?) {
         currentQuery.value = query
     }
 }

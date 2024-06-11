@@ -4,7 +4,6 @@ package com.example.unsplashclient.extencions
 import android.graphics.Color
 import android.widget.ImageView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.Resource
 import com.example.unsplashclient.R
 
 

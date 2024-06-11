@@ -8,7 +8,9 @@ import com.example.unsplashclient.BR
 import com.example.unsplashclient.R
 import com.example.unsplashclient.databinding.ImagePreviewCardViewBinding
 
-class ImagePreviewAdapter() :
+class ImagePreviewAdapter(
+    val callback: (String, String, String) -> Unit
+) :
     PagingDataAdapter<ImagePreviewData, ImagePreviewViewHolder<*>>(ImagePreviewComparator()) {
 
     companion object {
@@ -57,6 +59,8 @@ class ImagePreviewAdapter() :
         override fun bind(data: ImagePreviewData) {
             binding.setVariable(BR.dataModel, data)
             binding.executePendingBindings()
+
+            binding.root.setOnClickListener { callback(data.imageUrl, data.color, data.authorName) }
         }
     }
 }

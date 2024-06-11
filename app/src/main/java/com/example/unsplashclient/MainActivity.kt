@@ -1,7 +1,8 @@
 package com.example.unsplashclient
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
+import android.os.CountDownTimer
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -10,14 +11,25 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.SearchView
+import androidx.core.os.bundleOf
+import androidx.navigation.NavArgument
+import androidx.navigation.NavController
+import androidx.navigation.NavType
 import com.example.unsplashclient.databinding.ActivityMainBinding
+import com.example.unsplashclient.ui.image_view_fragment.ImageViewFragment
+import com.example.unsplashclient.ui.main_fragment.MainFragment
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Timer
+import java.util.TimerTask
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+
+    var navContr: NavController? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +43,7 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
+        navContr = navController
 
         binding.toolbarSearchButton.setOnClickListener {
             binding.toolbarSearchButton.visibility = View.GONE
@@ -44,6 +57,55 @@ class MainActivity : AppCompatActivity() {
             binding.toolbarTitle.visibility = View.VISIBLE
             binding.toolbarSearchButton.visibility = View.VISIBLE
         }
+
+        binding.toolbarSearchView.setOnQueryTextListener(MySearchListener())
+    }
+
+    inner class MySearchListener() : SearchView.OnQueryTextListener {
+
+        private var timer: SearchDelayTimer? = null
+
+        inner class SearchDelayTimer(val callback: () -> Unit) : CountDownTimer(600, 100) {
+            override fun onTick(millisUntilFinished: Long) {}
+
+            override fun onFinish() {
+                callback()
+            }
+        }
+
+        override fun onQueryTextSubmit(query: String?): Boolean {
+            Log.d("SUBMIT TEXT", query ?: "")
+
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main)
+                ?.let { fragment ->
+                    (fragment.childFragmentManager.fragments[0] as MainFragment)
+                        .passNewSearchQueryToViewModel(
+                            query
+                        )
+                }
+            return false
+        }
+
+        override fun onQueryTextChange(newText: String?): Boolean {
+
+            timer?.cancel()
+            timer = SearchDelayTimer(
+                callback = {
+                    supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main)
+                        ?.let { fragment ->
+                            (fragment.childFragmentManager.fragments[0] as MainFragment)
+                                .passNewSearchQueryToViewModel(
+                                    newText
+                                )
+                        }
+                }
+            )
+            timer?.start()
+
+
+            return true
+        }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
