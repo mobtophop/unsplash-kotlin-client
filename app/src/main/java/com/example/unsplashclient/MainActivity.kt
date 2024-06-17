@@ -2,7 +2,6 @@ package com.example.unsplashclient
 
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -11,17 +10,10 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.SearchView
-import androidx.core.os.bundleOf
-import androidx.navigation.NavArgument
 import androidx.navigation.NavController
-import androidx.navigation.NavType
 import com.example.unsplashclient.databinding.ActivityMainBinding
-import com.example.unsplashclient.ui.image_view_fragment.ImageViewFragment
 import com.example.unsplashclient.ui.main_fragment.MainFragment
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.Timer
-import java.util.TimerTask
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -61,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         binding.toolbarSearchView.setOnQueryTextListener(MySearchListener())
     }
 
-    inner class MySearchListener() : SearchView.OnQueryTextListener {
+    inner class MySearchListener() : androidx.appcompat.widget.SearchView.OnQueryTextListener {
 
         private var timer: SearchDelayTimer? = null
 
@@ -74,8 +66,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         override fun onQueryTextSubmit(query: String?): Boolean {
-            Log.d("SUBMIT TEXT", query ?: "")
-
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main)
                 ?.let { fragment ->
                     (fragment.childFragmentManager.fragments[0] as MainFragment)
@@ -128,5 +118,15 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration)
                 || super.onSupportNavigateUp()
+    }
+
+    fun toggleSearchBar(value: Boolean) {
+        binding.toolbarSearchButton.visibility = if (value) View.VISIBLE else View.GONE
+        binding.toolbarTitle.visibility = View.VISIBLE
+        binding.toolbarSearchView.visibility = View.GONE
+    }
+
+    fun setTitle(title: String) {
+        binding.toolbarTitle.text = title
     }
 }

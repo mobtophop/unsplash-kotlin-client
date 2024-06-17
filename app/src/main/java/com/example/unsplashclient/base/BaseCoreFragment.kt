@@ -1,4 +1,4 @@
-package com.example.cryptoscreenkotlin.base
+package com.example.unsplashclient.base
 
 import android.os.Bundle
 import android.view.LayoutInflater

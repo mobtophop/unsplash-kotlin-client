@@ -26,7 +26,8 @@
                     android:id="@+id/toolbarTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Gallery"
+                    android:text="@string/title"
+                    android:textColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -58,7 +59,7 @@
 
                 </com.google.android.material.button.MaterialButton>
 
-                <SearchView
+                <androidx.appcompat.widget.SearchView
                     android:id="@+id/toolbarSearchView"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -67,8 +68,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-
-                </SearchView>
+                </androidx.appcompat.widget.SearchView>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

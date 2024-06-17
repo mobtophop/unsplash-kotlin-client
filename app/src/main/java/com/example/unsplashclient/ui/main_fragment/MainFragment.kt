@@ -1,8 +1,6 @@
 package com.example.unsplashclient.ui.main_fragment
 
 import android.os.Bundle
-import android.util.Log
-import android.view.WindowManager
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.SavedStateHandle
@@ -22,7 +20,6 @@ import com.example.unsplashclient.ui.main_fragment.quick_search_adapter.QuickSea
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.withCreationCallback
 import kotlinx.coroutines.launch
-import kotlin.reflect.typeOf
 
 @AndroidEntryPoint
 class MainFragment : BaseFragment<FragmentMainBinding>() {
@@ -36,13 +33,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
     private val imagePreviewAdapter by lazy {
         ImagePreviewAdapter(
             callback = { imageUrl, color, authorName ->
-//
-//                Log.d("PRINT ACTIVITY", "${activity?.javaClass?.name}")
-//
-//                (activity as MainActivity?)?.loadFragment("unsplash link to image from $author")
-//
-//
-//                (requireActivity() as? MainActivity)?.supportActionBar?.hide()
+                (activity as MainActivity).toggleSearchBar(false)
+                (activity as MainActivity).setTitle(authorName)
 
                 findNavController().navigate(
                     R.id.action_mainFragment_to_imageViewFragment,
