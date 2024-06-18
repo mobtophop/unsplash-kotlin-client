@@ -42,6 +42,8 @@ class MainActivity : AppCompatActivity() {
             binding.toolbarTitle.visibility = View.GONE
             binding.toolbarBackButton.visibility = View.VISIBLE
             binding.toolbarSearchView.visibility = View.VISIBLE
+
+            binding.toolbarSearchView.isIconified = false
         }
         binding.toolbarBackButton.setOnClickListener {
             binding.toolbarBackButton.visibility = View.GONE
@@ -124,6 +126,7 @@ class MainActivity : AppCompatActivity() {
         binding.toolbarSearchButton.visibility = if (value) View.VISIBLE else View.GONE
         binding.toolbarTitle.visibility = View.VISIBLE
         binding.toolbarSearchView.visibility = View.GONE
+        binding.toolbarBackButton.visibility = View.GONE
     }
 
     fun setTitle(title: String) {

@@ -19,7 +19,7 @@ interface UnsplashApiService {
     @Headers("Authorization: Client-ID $UNSPLASH_ACCESS_KEY")
     suspend fun getSearchImages(
         @Query("query") query: String?,
-        @Query("page") page: String?, // Paging 3
+        @Query("page") page: String?,
         @Query("per_page") per_page: String?,
     ): Response<UnsplashSearchResult>
 }
