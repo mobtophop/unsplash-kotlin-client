@@ -1,11 +1,9 @@
 package com.example.unsplashclient.ui.main_fragment
 
 import android.os.Bundle
-import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.paging.map
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.GridLayoutManager
@@ -33,16 +31,11 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
     private val imagePreviewAdapter by lazy {
         ImagePreviewAdapter(
             callback = { imageUrl, color, authorName ->
-                (activity as MainActivity).toggleSearchBar(false)
-                (activity as MainActivity).setTitle(authorName)
 
-                findNavController().navigate(
-                    R.id.action_mainFragment_to_imageViewFragment,
-                    bundleOf(
-                        "IMAGE_URL" to imageUrl,
-                        "COLOR" to color,
-                        "AUTHOR_NAME" to authorName,
-                    )
+                (activity as MainActivity).openImageViewFragment(
+                    authorName = authorName,
+                    imageUrl = imageUrl,
+                    color = color,
                 )
 
             }

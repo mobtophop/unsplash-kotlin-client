@@ -5,6 +5,8 @@ plugins {
     id("com.google.devtools.ksp")
     id("org.jetbrains.kotlin.plugin.serialization") version "1.9.23"
     id("kotlin-kapt")
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -55,6 +57,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.firebase.messaging.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -78,6 +81,15 @@ dependencies {
     implementation("androidx.paging:paging-runtime:3.3.0")
     testImplementation("androidx.paging:paging-common:3.3.0")
 
+    //Firebase
+    implementation(platform("com.google.firebase:firebase-bom:33.1.0"))
+
+    //Firebase version management
+    implementation(platform("com.google.firebase:firebase-bom:33.1.0"))
+
+    //Firebase crashlytics
+    implementation("com.google.firebase:firebase-crashlytics")
+    implementation("com.google.firebase:firebase-analytics")
 
     implementation(libs.glide)
 }

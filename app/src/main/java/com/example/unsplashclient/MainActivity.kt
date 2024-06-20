@@ -2,15 +2,17 @@ package com.example.unsplashclient
 
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
-import androidx.navigation.NavController
 import com.example.unsplashclient.databinding.ActivityMainBinding
 import com.example.unsplashclient.ui.main_fragment.MainFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,10 +23,38 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
-    var navContr: NavController? = null
+    private var navController: NavController? = null
+
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission(),
+    ) {  }
+
+    override fun onStart() {
+        super.onStart()
+
+        if (intent != null) {
+            val authorName = intent.extras?.getString("authorName")
+            val imageUrl = intent.extras?.getString("imageUrl")
+            val color = intent.extras?.getString("color")
+
+            if (
+                authorName != null &&
+                imageUrl != null &&
+                color != null
+            ) {
+                openImageViewFragment(
+                    authorName = authorName,
+                    imageUrl = imageUrl,
+                    color = color,
+                )
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        requestPermissionLauncher.launch("android.permission.POST_NOTIFICATIONS")
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -35,7 +65,7 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
-        navContr = navController
+        this.navController = navController
 
         binding.toolbarSearchButton.setOnClickListener {
             binding.toolbarSearchButton.visibility = View.GONE
@@ -131,5 +161,19 @@ class MainActivity : AppCompatActivity() {
 
     fun setTitle(title: String) {
         binding.toolbarTitle.text = title
+    }
+
+    fun openImageViewFragment(authorName: String, imageUrl: String, color: String) {
+        toggleSearchBar(false)
+        setTitle(authorName)
+
+        navController?.navigate(
+            R.id.action_mainFragment_to_imageViewFragment,
+            bundleOf(
+                "IMAGE_URL" to imageUrl,
+                "COLOR" to color,
+                "AUTHOR_NAME" to authorName,
+            )
+        )
     }
 }
