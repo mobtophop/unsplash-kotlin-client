@@ -81,7 +81,7 @@ class ImageViewFragment : BaseFragment<FragmentImageViewBinding>() {
         postUrl?.let {
             requireActivity().lifecycleScope.async {
                 val data = viewModel.getPostInfo(it.split("/").last())
-                Thread.sleep(5000) //Added for visual representation of a long loading process
+                Thread.sleep(3000) //Added for visual representation of a long loading process
                 if (data == null) return@async it
 
                 requireActivity().runOnUiThread {

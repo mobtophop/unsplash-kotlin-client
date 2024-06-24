@@ -47,12 +47,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun processDataFromIntent() {
         if (intent != null) {
-
-            Log.d("INTENT DATA", "${intent.data}")
-
-            Log.d("INTENT extras", "${intent.extras}")
-
-
             if (intent.data != null) {
                 val data: Uri = intent.data!!
 
@@ -212,6 +206,10 @@ class MainActivity : AppCompatActivity() {
         color: String,
         postUrl: String?,
     ) {
+        if (navController?.currentDestination?.id == R.id.imageViewFragment) {
+            navController?.popBackStack()
+        }
+
         toggleSearchBar(false)
         setTitle(authorName)
 
