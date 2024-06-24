@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/black">
 
     <data>
+
+        <import type="android.view.View" />
 
         <variable
             name="imageUrl"
@@ -15,24 +18,51 @@
         <variable
             name="authorName"
             type="String" />
+
+        <variable
+            name="isContentReady"
+            type="Boolean" />
+
+        <variable
+            name="viewModel"
+            type="com.example.unsplashclient.ui.image_view_fragment.ImageViewViewModel" />
     </data>
 
 
-    <FrameLayout
-        colorFromHex="@{color}"
-        scaleChild="@{true}"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            color="@{color}"
-            image="@{imageUrl}"
+        <androidx.core.widget.ContentLoadingProgressBar
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            style="?android:attr/progressBarStyle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            >
+
+        </androidx.core.widget.ContentLoadingProgressBar>
+
+        <FrameLayout
+            colorFromHex="@{color}"
+            scaleChild="@{true}"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:visibility='@{isContentReady ? View.VISIBLE :  View.GONE}'>
 
-        </ImageView>
+            <ImageView
+                color="@{color}"
+                image="@{imageUrl}"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </ImageView>
 
 
-    </FrameLayout>
+        </FrameLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

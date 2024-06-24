@@ -18,4 +18,8 @@ constructor(private val unsplashApiService: UnsplashApiService) {
             ),
             pagingSourceFactory = { UnsplashDataSource(unsplashApiService, query) }
         ).liveData
+
+    suspend fun getPostInfo(id: String?) =
+        UnsplashDataSource(unsplashApiService, null).getPostInfo(id)
+
 }

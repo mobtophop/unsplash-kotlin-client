@@ -19,6 +19,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
+            android:launchMode="singleTask"
             android:theme="@style/Theme.UnsplashClient">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,7 +44,7 @@
                 <!--on below line we are specifying the host name and
                     the scheme type from which we will be calling our app-->
                 <data
-                    android:host="www.chaitanyamunje.com"
+                    android:host="images.unsplash.com"
                     android:scheme="https" />
             </intent-filter>
 
@@ -56,7 +57,29 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:host="www.chaitanyamunje.com"
+                    android:host="images.unsplash.com"
+                    android:scheme="http" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="unsplash.com"
+                    android:scheme="https" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="unsplash.com"
                     android:scheme="http" />
             </intent-filter>
 

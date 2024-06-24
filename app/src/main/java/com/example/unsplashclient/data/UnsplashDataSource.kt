@@ -5,6 +5,7 @@ import androidx.paging.PagingState
 import com.example.unsplashclient.api.UnsplashApiService
 import com.example.unsplashclient.api.UnsplashPhotoData
 import retrofit2.HttpException
+import retrofit2.Response
 import java.io.IOException
 import javax.inject.Inject
 
@@ -47,5 +48,9 @@ class UnsplashDataSource @Inject constructor(
         } catch (e: HttpException) {
             LoadResult.Error(e)
         }
+    }
+
+    suspend fun getPostInfo(id: String?) : Response<UnsplashPhotoData> {
+        return unsplashApiService.getPostInfo(id)
     }
 }

@@ -36,6 +36,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
                     authorName = authorName,
                     imageUrl = imageUrl,
                     color = color,
+                    postUrl = null,
                 )
 
             }

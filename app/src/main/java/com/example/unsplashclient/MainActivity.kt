@@ -1,7 +1,10 @@
 package com.example.unsplashclient
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -17,6 +20,7 @@ import com.example.unsplashclient.databinding.ActivityMainBinding
 import com.example.unsplashclient.ui.main_fragment.MainFragment
 import dagger.hilt.android.AndroidEntryPoint
 
+
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
@@ -27,12 +31,50 @@ class MainActivity : AppCompatActivity() {
 
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission(),
-    ) {  }
+    ) { }
 
     override fun onStart() {
         super.onStart()
 
+        processDataFromIntent()
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        processDataFromIntent()
+    }
+
+    private fun processDataFromIntent() {
         if (intent != null) {
+
+            Log.d("INTENT DATA", "${intent.data}")
+
+            Log.d("INTENT extras", "${intent.extras}")
+
+
+            if (intent.data != null) {
+                val data: Uri = intent.data!!
+
+                when (data.host) {
+                    "images.unsplash.com" -> openImageViewFragment(
+                        authorName = "Image view",
+                        imageUrl = intent.data.toString(),
+                        color = "#000000",
+                        postUrl = null,
+                    )
+
+                    "unsplash.com" -> openImageViewFragment(
+                        authorName = "Image view",
+                        imageUrl = "",
+                        color = "#000000",
+                        postUrl = intent.data.toString(),
+                    )
+                }
+
+                return
+            }
+
             val authorName = intent.extras?.getString("authorName")
             val imageUrl = intent.extras?.getString("imageUrl")
             val color = intent.extras?.getString("color")
@@ -46,6 +88,7 @@ class MainActivity : AppCompatActivity() {
                     authorName = authorName,
                     imageUrl = imageUrl,
                     color = color,
+                    postUrl = null,
                 )
             }
         }
@@ -163,7 +206,12 @@ class MainActivity : AppCompatActivity() {
         binding.toolbarTitle.text = title
     }
 
-    fun openImageViewFragment(authorName: String, imageUrl: String, color: String) {
+    fun openImageViewFragment(
+        authorName: String,
+        imageUrl: String,
+        color: String,
+        postUrl: String?,
+    ) {
         toggleSearchBar(false)
         setTitle(authorName)
 
@@ -173,6 +221,7 @@ class MainActivity : AppCompatActivity() {
                 "IMAGE_URL" to imageUrl,
                 "COLOR" to color,
                 "AUTHOR_NAME" to authorName,
+                "POST_URL" to postUrl,
             )
         )
     }
